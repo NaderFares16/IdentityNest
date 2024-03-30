@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #define SIZE 200
 
 // VARIÁVEIS GLOBAIS (PÚBLICAS)
@@ -7,17 +8,25 @@ char mail[SIZE][50];
 int cpf[SIZE];
 int option;
 
+// INICIALIZAÇÃO DAS FUNÇÕES
 void createRegistry();
+void searchRegistry();
 
 // FUNÇÃO PRINCIPAL
 int main(void) {
+  printf("\n IdentityNest v1.0 \n");
+  printf(" Author: Nader Fares \n");
   createRegistry();
+  searchRegistry();
   return 0;
 }
 
 // FUNÇÃO PARA REGISTAR USUÁRIO
 void createRegistry() {
   static int row;
+
+  printf("\n### Create Registry ###\n");
+
   do {
     printf("\n Enter name: ");
     scanf("%s", &name[row]);
@@ -31,5 +40,46 @@ void createRegistry() {
     printf("\n Press 1 to continue or press another value to exit: ");
     scanf("%d", &option);
     row++;
+  } while(option == 1);
+}
+
+// FUNÇÃO DE PESQUISA
+void searchRegistry() {
+  // VARIÁVEL LOCAL
+  int searchCPF;
+  char searchMail[50];
+  int i;
+
+  printf("\n### Search Registry ###\n");
+
+  do {
+   printf("\nPress 1 to search by CPF or Press 2 to search by Mail: ");
+   scanf("%d", &option);
+
+   switch (option) {
+      case 1:
+        printf("\n Enter CPF: ");
+        scanf("%d", &searchCPF);
+        for (i = 0; i < SIZE; i++) {
+          if (cpf[i] == searchCPF) {
+            printf("\n Name: %s\n Mail: %s\n CPF: %d", name[i], mail[i], cpf[i]);
+          }
+        }
+        break;
+      case 2:
+        printf("\n Enter e-mail: ");
+        scanf("%s", &searchMail);
+        for (i = 0; i < SIZE; i++) {
+          if (strcmp(mail[i], searchMail) == 0) {
+            printf("\n Name: %s\n Mail: %s\n CPF: %d", name[i], mail[i], cpf[i]);
+          }
+        }
+        break;
+      default:
+        printf("\n Invalid Option ");
+        break;
+    }
+   printf("\n Press 1 to continue searching or press another value to exit: ");
+   scanf("%d", &option);
   } while(option == 1);
 }
