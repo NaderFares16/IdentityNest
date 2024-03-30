@@ -11,14 +11,51 @@ int option;
 // INICIALIZAÇÃO DAS FUNÇÕES
 void createRegistry();
 void searchRegistry();
+void listRegistry();
 
 // FUNÇÃO PRINCIPAL
 int main(void) {
-  printf("\n IdentityNest v1.0 \n");
-  printf(" Author: Nader Fares \n");
-  createRegistry();
-  searchRegistry();
-  return 0;
+  do {
+    system("cls");
+    printf("\nIdentityNest v1.0\n");
+    printf("Author: Nader Fares\n");
+    printf("\n---- Menu ----\n1 - Create User\n2 - List Users\n3 - Search User\n4 - Exit\n----> ");
+    scanf("%d", &option);
+    switch (option) {
+      case 1:
+        createRegistry();
+        break;
+      case 2:
+        listRegistry();
+        break;
+      case 3:
+        searchRegistry();
+        break;
+      case 4:
+        system("exit");
+        break;
+      default:
+        printf("Invalid Option");
+        getchar();
+        getchar();
+        break;
+    }
+  } while (option != 4);
+}
+
+// FUNÇÃO PARA LISTAR TODOS OS REGISTROS
+void listRegistry() {
+  int i;
+  for(i = 0; i < SIZE; i++) {
+    // CONDIÇÃO PARA LISTAR SOMENTE OS ESPAÇOS OCUPADOS
+    if (cpf[i] > 0) {
+      printf("\n Name: %s\n Mail: %s\n CPF: %d\n ###\n", name[i], mail[i], cpf[i]);
+    } else {
+      break;
+    }
+  }
+  getchar();
+  getchar();
 }
 
 // FUNÇÃO PARA REGISTAR USUÁRIO
